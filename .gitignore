@@ -1,0 +1,8 @@
+# Designs that were not chosen; kept locally for reference only
+_prototypes/
+
+# OS / editor noise
+Thumbs.db
+desktop.ini
+.DS_Store
+.vscode/

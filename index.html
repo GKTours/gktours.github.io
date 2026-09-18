@@ -1,0 +1,194 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>GK Tours and Travels</title>
+  <meta name="description" content="Road trips across Rayalaseema and north Tamil Nadu — Tirumala, Gandikota, Horsley Hills, Lepakshi, Srisailam, Kanchipuram, Tiruvannamalai and Yelagiri.">
+  <!-- Link previews on WhatsApp / Facebook. Update when the real name and domain are known. -->
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="GK Tours and Travels">
+  <meta property="og:description" content="Road trips across Rayalaseema and north Tamil Nadu: temple darshans, canyon forts, waterfalls and hill stations.">
+  <meta name="theme-color" content="#c8102e">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Ccircle cx='32' cy='32' r='30' fill='%23f7a600'/%3E%3Ccircle cx='32' cy='32' r='19' fill='%23ffc93c'/%3E%3Ccircle cx='32' cy='32' r='8' fill='%23c8102e'/%3E%3C/svg%3E">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Mukta:wght@400;500;700&family=Yatra+One&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="shared/scenes.css">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <a class="skip" href="#packages">Skip to packages</a>
+
+  <header class="hero" id="top">
+    <svg class="garland" id="garland" viewBox="0 0 1200 190" preserveAspectRatio="xMidYMin slice" aria-hidden="true"></svg>
+
+    <nav class="nav" aria-label="Main">
+      <a class="logo" href="#top"><span class="logo-mark" aria-hidden="true"></span><span data-cfg="brand"></span></a>
+      <div class="nav-links">
+        <a href="#packages">Packages</a>
+        <a href="#how">How booking works</a>
+        <a href="#contact">Contact</a>
+      </div>
+      <a class="btn btn-light nav-cta" data-link="tel">Call us</a>
+    </nav>
+
+    <div class="hero-inner">
+      <div class="hero-copy">
+        <h1>Temple towns, canyon forts and hill air, a short drive from Tirupati.</h1>
+        <p class="lede">Road trips across Rayalaseema and north Tamil Nadu with your own driver, a clean hotel and darshan timings planned for you.</p>
+        <div class="hero-actions">
+          <a class="btn btn-marigold" href="#packages">See trip packages</a>
+          <a class="btn btn-ghost" data-link="wa" target="_blank" rel="noopener">Ask on WhatsApp</a>
+        </div>
+      </div>
+
+      <figure class="arch" aria-live="polite">
+        <div class="arch-frame">
+          <div class="arch-scene" id="archScene"></div>
+        </div>
+        <figcaption class="arch-caption">
+          <strong id="archTitle"></strong>
+          <span id="archMeta"></span>
+          <button class="btn btn-rani btn-small" id="archBook" type="button">Book this trip</button>
+        </figcaption>
+        <div class="arch-picker" role="group" aria-label="Preview a destination" id="archPicker"></div>
+      </figure>
+    </div>
+  </header>
+
+  <main>
+    <section class="packages" id="packages" aria-labelledby="packages-h">
+      <div class="wrap">
+        <div class="section-head">
+          <h2 id="packages-h">Pick a trip</h2>
+          <p>Prices are per person on twin sharing, with an AC vehicle from the pickup point you choose.</p>
+        </div>
+
+        <div class="filters">
+          <div class="chips" role="group" aria-label="Filter by kind of trip" id="themeChips"></div>
+          <div class="regions" role="group" aria-label="Filter by region" id="regionChips"></div>
+        </div>
+        <p class="count" id="count" aria-live="polite"></p>
+
+        <div class="grid" id="grid"></div>
+        <div class="empty" id="empty" hidden>
+          <p>No trip matches both filters. Choose “All trips” or another region to see more.</p>
+        </div>
+
+        <div class="custom-trip">
+          <div>
+            <h3>Have other places in mind?</h3>
+            <p>Tell us the temples, towns or hills you want to cover. We'll plan the route and quote a price.</p>
+          </div>
+          <button class="btn btn-marigold" type="button" data-book="custom">Plan a custom trip</button>
+        </div>
+      </div>
+    </section>
+
+    <section class="how" id="how" aria-labelledby="how-h">
+      <div class="wrap">
+        <h2 id="how-h">How booking works</h2>
+        <ol class="steps">
+          <li><h3>Choose a trip</h3><p>Pick a package, or tell us the temples and places you have in mind.</p></li>
+          <li><h3>Send an enquiry</h3><p>Share your date, group size and pickup point. It takes a minute.</p></li>
+          <li><h3>We call to confirm</h3><p>We fix the vehicle, hotel and timings with you, then share the final price.</p></li>
+          <li><h3>Travel</h3><p>Your driver picks you up on the day. Pay the balance after the trip.</p></li>
+        </ol>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer" id="contact">
+    <div class="wrap footer-grid">
+      <div>
+        <h2>Plan a trip with us</h2>
+        <p>Call, WhatsApp or email. We reply the same day.</p>
+        <button class="btn btn-marigold footer-cta" type="button" data-book="custom">Plan a custom trip</button>
+        <p class="office" data-cfg="office"></p>
+      </div>
+      <div class="contact-links">
+        <div class="contact-card"><span>Phone</span><div class="phone-list" id="phoneList"></div></div>
+        <a class="contact-card" data-link="wa" target="_blank" rel="noopener"><span>WhatsApp</span><strong>Chat with us</strong></a>
+        <a class="contact-card" data-link="gmail" target="_blank" rel="noopener"><span>Email</span><strong class="email" id="emailText"></strong></a>
+      </div>
+    </div>
+    <div class="wrap fineprint">
+      <p>Developed by <a href="https://harvantechnologies.in" target="_blank" rel="noopener">HarvanTechnologies.in</a></p>
+    </div>
+  </footer>
+
+  <dialog class="modal" id="modal" aria-labelledby="modal-h">
+    <div class="modal-card">
+      <button class="modal-close" type="button" id="modalClose" aria-label="Close">×</button>
+
+      <aside class="modal-side">
+        <div class="modal-scene" id="modalScene"></div>
+        <div class="modal-summary">
+          <p class="modal-price" id="modalPrice"></p>
+          <p id="modalRoute"></p>
+        </div>
+      </aside>
+
+      <div class="modal-body">
+        <form id="form" novalidate>
+          <h2 id="modal-h">Book this trip</h2>
+          <p class="modal-note">Send your details and we'll call to confirm. Nothing is charged now.</p>
+
+          <div class="fields">
+            <label class="field span2"><span>Package</span>
+              <select name="package" id="f-package" aria-describedby="e-package"></select>
+              <small class="err" id="e-package"></small></label>
+            <label class="field"><span>Your name</span>
+              <input name="name" autocomplete="name" aria-describedby="e-name">
+              <small class="err" id="e-name"></small></label>
+            <label class="field"><span>Mobile number</span>
+              <input name="phone" type="tel" inputmode="tel" autocomplete="tel" placeholder="98765 43210" aria-describedby="e-phone">
+              <small class="err" id="e-phone"></small></label>
+            <label class="field"><span>Email <em>(optional)</em></span>
+              <input name="email" type="email" autocomplete="email" aria-describedby="e-email">
+              <small class="err" id="e-email"></small></label>
+            <label class="field"><span>Travel date</span>
+              <input name="date" type="date" id="f-date" aria-describedby="e-date">
+              <small class="err" id="e-date"></small></label>
+            <label class="field"><span>Adults</span>
+              <input name="adults" type="number" min="1" max="60" value="2" aria-describedby="e-adults">
+              <small class="err" id="e-adults"></small></label>
+            <label class="field"><span>Children</span>
+              <input name="children" type="number" min="0" max="40" value="0"></label>
+            <label class="field"><span>Pickup point</span>
+              <select name="pickup" id="f-pickup"></select></label>
+            <label class="field"><span>Vehicle</span>
+              <select name="vehicle" id="f-vehicle"></select></label>
+            <label class="field span2"><span id="f-message-label">Anything else? <em>(optional)</em></span>
+              <textarea name="message" id="f-message" rows="3" placeholder="Senior citizens, darshan type, extra stops…" aria-describedby="e-message"></textarea>
+              <small class="err" id="e-message"></small></label>
+            <input type="checkbox" name="botcheck" tabindex="-1" autocomplete="off" style="display:none">
+          </div>
+
+          <p class="form-error" id="formError" role="alert" hidden></p>
+          <div class="form-actions">
+            <button class="btn btn-rani" type="submit" id="submitBtn">Send enquiry</button>
+            <a class="alt-link" id="gmailLink" target="_blank" rel="noopener">Send from Gmail instead</a>
+            <a class="alt-link" id="waLink" target="_blank" rel="noopener">WhatsApp us</a>
+          </div>
+        </form>
+
+        <div class="done" id="done" hidden tabindex="-1">
+          <div class="done-flower" aria-hidden="true"></div>
+          <h2>Enquiry sent</h2>
+          <p id="doneMsg"></p>
+          <p class="demo-note" id="demoNote" hidden>Demo mode: no email was sent. Add your Web3Forms access key in <code>shared/config.js</code> to receive enquiries.</p>
+          <button class="btn btn-rani" type="button" id="doneClose">Back to trips</button>
+        </div>
+      </div>
+    </div>
+  </dialog>
+
+  <script src="shared/config.js"></script>
+  <script src="shared/packages.js"></script>
+  <script src="shared/scenes.js"></script>
+  <script src="shared/enquiry.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>

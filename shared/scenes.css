@@ -1,0 +1,19 @@
+/* Default colour moods for the illustrated scenes. Put .mood-<name> on the scene's container.
+   A prototype can override any of these by redefining the same classes after this file. */
+.scene { display: block; width: 100%; height: 100%; }
+
+.mood-dawn    { --sky1:#ff6f61; --sky2:#ffd36e; --sun:#fff4c2; --far:#e0735a; --ink:#7a1f3d; --near:#5b1636; --trim:#f7b733; --leaf:#2d5a27; }
+.mood-noon    { --sky1:#3fb6ff; --sky2:#b8ecff; --sun:#fff6a8; --mid:#d2542f; --strata:#8e2a1a; --water:#1fb5c9; --ink:#6e1d12; }
+.mood-monsoon { --sky1:#5fc3a7; --sky2:#d9f7e8; --mid:#2f8a52; --far:#1e5a3a; --near:#154a2d; --water:#d4f6fb; --leaf:#1b4d2f; }
+.mood-dusk    { --sky1:#7b2ff7; --sky2:#ff8c6b; --sun:#ffd76a; --far:#c95b6b; --ink:#4a1a5c; --near:#2e0f3d; --trim:#ffb347; }
+.mood-forest  { --sky1:#ffb35c; --sky2:#ffe8b0; --sun:#fff7d6; --far:#8d6fb8; --mid:#3f7a5c; --near:#1f4a35; --trim:#ffd166; --water:#a8e6ef; --leaf:#16402b; --ink:#3a1030; }
+.mood-sea     { --sky1:#ff9a8b; --sky2:#ffe3b3; --sun:#fff2c9; --water:#1695b8; --ink:#6b3a2a; --near:#f0c27b; --trim:#ffd166; --leaf:#2b6b3a; }
+.mood-ember   { --sky1:#d7263d; --sky2:#ffb13b; --sun:#fff0b3; --far:#a23b72; --mid:#9c4f2b; --near:#5a2615; --ink:#33120b; --trim:#ffd166; --leaf:#2d4a1f; }
+.mood-evening { --sky1:#1d3b8f; --sky2:#ff7eb3; --sun:#ffe07a; --far:#7a5cc4; --mid:#3b5c9e; --near:#1c2f5e; --trim:#ffd166; --water:#8fe3f5; --leaf:#12264a; --ink:#140c33; }
+
+@media (prefers-reduced-motion: no-preference) {
+  .sc-flow { animation: sc-flow 0.9s linear infinite; }
+  @keyframes sc-flow { to { stroke-dashoffset: -22; } }
+  .sc-wave { animation: sc-wave 4s ease-in-out infinite alternate; }
+  @keyframes sc-wave { to { transform: translateX(-20px); } }
+}
