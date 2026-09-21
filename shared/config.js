@@ -22,7 +22,7 @@ window.SITE_CONFIG = {
    * the success screen, but sends nothing.
    */
   web3formsKeys: [
-    "YOUR_WEB3FORMS_ACCESS_KEY",
+    "63a64b34-13c1-4195-a047-1020a88f470c",   // gk.tours.travelz@gmail.com
   ],
 };
 // Older code reads a single `phone`; keep it pointing at the main number.
