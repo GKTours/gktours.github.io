@@ -335,6 +335,27 @@ img, svg { max-width: 100%; }
 .demo-note code { font-size: .9em; }
 
 /* ---------- responsive ---------- */
+/* ---------- car fare cards ---------- */
+.vis-hidden {
+  position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px;
+  overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0;
+}
+/* A route the fare sheet has not priced yet: the stamp says "Ask us", so it
+   drops the marigold shout and sits quietly in peacock instead. */
+.stamp-ask { background: var(--peacock); color: var(--white); }
+.stamp-ask strong { font-size: .98rem; }
+
+.fare-table { width: 100%; margin-top: 10px; border-collapse: collapse; font-variant-numeric: tabular-nums; }
+.fare-table th, .fare-table td { padding: 7px 8px; text-align: right; }
+.fare-table thead th {
+  font-size: .74rem; font-weight: 700; color: var(--peacock-deep);
+  text-transform: uppercase; letter-spacing: .04em;
+}
+.fare-table tbody th { text-align: left; font-weight: 700; color: var(--plum); border-top: 1px solid #f4dde5; }
+.fare-table tbody th small { display: block; font-weight: 500; font-size: .78rem; color: #8a6a86; }
+.fare-table tbody td { border-top: 1px solid #f4dde5; font-weight: 700; color: var(--rani-deep); }
+.fare-table tbody td.ask { font-weight: 500; font-size: .88rem; color: #8a6a86; }
+
 @media (max-width: 960px) {
   .hero-inner { grid-template-columns: 1fr; gap: 36px; }
   .hero h1 { max-width: 18ch; }

@@ -47,10 +47,15 @@
 
   function describe(d) {
     if (d.package === CUSTOM) return { pkgTitle: "Custom trip", pkgLine: "Custom trip (see message)" };
-    const pkg = window.packageById(d.package);
+    // A page without the package list only ever asks for a plain link.
+    const pkg = window.packageById ? window.packageById(d.package) : null;
+    // A car fare is priced per vehicle, and some routes have no fare yet.
+    const price = !pkg || pkg.price == null
+      ? "price on request"
+      : `from ${window.formatINR(pkg.price)}${pkg.kind === "fare" ? " one way" : ""}`;
     return {
       pkgTitle: pkg ? pkg.title : d.package,
-      pkgLine: pkg ? `${pkg.title} (${window.tripShort(pkg)}, from ${window.formatINR(pkg.price)} pp)` : d.package,
+      pkgLine: pkg ? `${pkg.title} (${window.tripShort(pkg)}, ${price})` : d.package,
     };
   }
 

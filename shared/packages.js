@@ -1,6 +1,7 @@
 /*
- * Tour packages and the places they visit. Prices are placeholders ("from", per person,
- * twin sharing) — replace them with the real tariff.
+ * Tour packages and the places they visit. Prices are placeholders — replace them
+ * with the real tariff. The page shows the figure alone and states no basis, so
+ * whatever a price means (per person, per vehicle) is settled when you call back.
  * lon/lat are only used to plot the route map; they are approximate.
  */
 window.PLACES = {
@@ -35,6 +36,9 @@ window.PLACES = {
   vellore:        { name: "Vellore",         lon: 79.13, lat: 12.92 },
   sripuram:       { name: "Sripuram",        lon: 79.09, lat: 12.87 },
   yelagiri:       { name: "Yelagiri Hills",  lon: 78.64, lat: 12.58 },
+  ontimitta:      { name: "Ontimitta",       lon: 79.02, lat: 14.38 },
+  appalayagunta:  { name: "Appalayagunta",   lon: 79.32, lat: 13.50 },
+  madurai:        { name: "Madurai",         lon: 78.12, lat: 9.93 },
 };
 
 window.REGIONS = {
@@ -42,7 +46,7 @@ window.REGIONS = {
   tamilnadu: "North Tamil Nadu",
 };
 
-window.THEMES = ["Day trip", "Pilgrimage", "Heritage", "Nature", "Adventure"];
+window.THEMES = ["Car fare", "Day trip", "Pilgrimage", "Heritage", "Nature", "Adventure"];
 
 window.PACKAGES = [
   {
@@ -195,10 +199,14 @@ window.PICKUP_POINTS = ["Tirupati", "Chennai", "Bengaluru", "Kadapa", "Anantapur
 window.VEHICLES = ["Sedan (4 seats)", "Innova / SUV (7 seats)", "Tempo Traveller (12 seats)", "Mini bus (20+ seats)"];
 
 window.formatINR = (n) => "₹" + Number(n).toLocaleString("en-IN");
-// "2 days, 1 night" / "Day trip"
-window.tripLength = (p) => p.nights === 0
-  ? (p.days === 1 ? "Day trip" : `${p.days} days`)
-  : `${p.days} day${p.days > 1 ? "s" : ""}, ${p.nights} night${p.nights === 1 ? "" : "s"}`;
+// "2 days, 1 night" / "Day trip" / "Car and driver" for a point-to-point fare
+window.tripLength = (p) => p.kind === "fare"
+  ? "Car and driver"
+  : p.nights === 0
+    ? (p.days === 1 ? "Day trip" : `${p.days} days`)
+    : `${p.days} day${p.days > 1 ? "s" : ""}, ${p.nights} night${p.nights === 1 ? "" : "s"}`;
 // "2D/1N" / "day trip" — compact form for dropdowns and emails
-window.tripShort = (p) => p.nights === 0 ? (p.days === 1 ? "day trip" : `${p.days}D`) : `${p.days}D/${p.nights}N`;
+window.tripShort = (p) => p.kind === "fare"
+  ? "car fare"
+  : p.nights === 0 ? (p.days === 1 ? "day trip" : `${p.days}D`) : `${p.days}D/${p.nights}N`;
 window.packageById = (id) => window.PACKAGES.find((p) => p.id === id);

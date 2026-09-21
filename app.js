@@ -101,10 +101,12 @@
   }
 
   /* ---------- arch preview ---------- */
+  // The hero cycles through the tour packages; car fares stay in the grid below.
+  const TRIPS = PACKAGES.filter((p) => p.kind !== "fare");
   let archIndex = 0;
   const archScene = $("#archScene");
   const picker = $("#archPicker");
-  PACKAGES.forEach((p, i) => {
+  TRIPS.forEach((p, i) => {
     const b = document.createElement("button");
     b.type = "button";
     b.setAttribute("aria-label", p.title);
@@ -114,7 +116,7 @@
   });
   function showArch(i, instant) {
     archIndex = i;
-    const p = PACKAGES[i];
+    const p = TRIPS[i];
     const paint = () => {
       archScene.className = "arch-scene mood-" + p.mood;
       archScene.innerHTML = Scene.render(p.scene);
@@ -126,25 +128,50 @@
     $$("button", picker).forEach((b, k) => b.setAttribute("aria-pressed", String(k === i)));
   }
   showArch(0, true);
-  $("#archBook").addEventListener("click", (e) => openModal(PACKAGES[archIndex].id, e.currentTarget));
+  $("#archBook").addEventListener("click", (e) => openModal(TRIPS[archIndex].id, e.currentTarget));
 
   /* ---------- package cards + filters ---------- */
+  // A car fare is priced by the vehicle, so its stamp says "one way"; a package
+  // stamp carries the figure alone. A route the fare sheet has not priced yet
+  // says "Ask us" instead of a number.
+  const ASK = "Ask us";
+  function stamp(p) {
+    if (p.kind !== "fare") return `<small>from</small><strong>${formatINR(p.price)}</strong>`;
+    return p.price == null
+      ? `<small>fare</small><strong>${ASK}</strong><small>for price</small>`
+      : `<small>from</small><strong>${formatINR(p.price)}</strong><small>one way</small>`;
+  }
+  function fareTable(f) {
+    const cell = (v) => (v == null ? `<td class="ask">${ASK}</td>` : `<td>${formatINR(v)}</td>`);
+    const rows = VEHICLE_CLASSES.map((v) =>
+      `<tr><th scope="row">${v.label} <small>${v.hint}</small></th>${cell(f[v.key].oneWay)}${cell(f[v.key].twoWay)}</tr>`).join("");
+    return `<table class="fare-table">
+            <thead><tr><td></td><th scope="col">One way</th><th scope="col">Return</th></tr></thead>
+            <tbody>${rows}</tbody>
+          </table>`;
+  }
+  function cardDetails(p) {
+    return p.kind === "fare"
+      ? `<details class="includes"><summary>Sedan and SUV fares</summary>${fareTable(p.fare)}</details>`
+      : `<details class="includes"><summary>What's included</summary><ul>${p.includes.map((x) => `<li>${x}</li>`).join("")}</ul></details>`;
+  }
+
   const grid = $("#grid");
   grid.innerHTML = PACKAGES.map((p) => `
     <article class="card" data-id="${p.id}">
       <div class="card-scene mood-${p.mood}">
         ${Scene.render(p.scene)}
-        <div class="stamp"><small>from</small><strong>${formatINR(p.price)}</strong><small>per person</small></div>
+        <div class="stamp${p.kind === "fare" && p.price == null ? " stamp-ask" : ""}">${stamp(p)}</div>
       </div>
       <div class="card-body">
         <div class="card-meta"><span class="tag region">${REGIONS[p.region]}</span>${p.tags.filter((t) => t !== "Day trip").map((t) => `<span class="tag">${t}</span>`).join("")}</div>
         <h3>${p.title}</h3>
         <ol class="route" aria-label="Route">${routeNames(p).map((n) => `<li>${n}</li>`).join("")}</ol>
         <p class="blurb">${p.blurb}</p>
-        <details class="includes"><summary>What's included</summary><ul>${p.includes.map((x) => `<li>${x}</li>`).join("")}</ul></details>
+        ${cardDetails(p)}
         <div class="card-actions">
           <span class="days">${days(p)}</span>
-          <button class="btn btn-rani btn-small" type="button" data-book="${p.id}">Book this trip</button>
+          <button class="btn btn-rani btn-small" type="button" data-book="${p.id}">${p.kind === "fare" ? "Book this car" : "Book this trip"}</button>
         </div>
       </div>
     </article>`).join("");
@@ -195,6 +222,12 @@
   const today = new Date(Date.now() - new Date().getTimezoneOffset() * 60000).toISOString().slice(0, 10);
   $("#f-date").min = today;
 
+  // "from ₹4,999" for a package, the vehicle fare for a car.
+  function priceLine(p) {
+    if (p.kind !== "fare") return `from ${formatINR(p.price)}`;
+    return p.price == null ? "Fare on request" : `from ${formatINR(p.price)} one way, whole car`;
+  }
+
   function paintSide() {
     const id = $("#f-package").value;
     const custom = id === Enquiry.CUSTOM;
@@ -202,7 +235,7 @@
     const scene = $("#modalScene");
     scene.className = "modal-scene mood-" + (custom ? "forest" : p.mood);
     scene.innerHTML = Scene.render(custom ? "hills" : p.scene);
-    $("#modalPrice").textContent = custom ? "Custom trip" : `from ${formatINR(p.price)} per person`;
+    $("#modalPrice").textContent = custom ? "Custom trip" : priceLine(p);
     $("#modalRoute").textContent = custom
       ? "List the places you want to visit. We'll plan the route and call you with a price."
       : `${days(p)}: ${routeNames(p).join(", ")}`;
