@@ -31,7 +31,7 @@ Copy this block once per package. Any number of packages works. You can remove, 
 
 ```
 Name:              (e.g. Tirumala darshan circuit)
-Region:            Rayalaseema / North Tamil Nadu
+Region:            Rayalaseema / Tamil Nadu
 Kind:              Pilgrimage / Heritage / Nature / Adventure  (one or more)
 Places, in order:  (e.g. Tirupati, Tirumala, Srikalahasti, Kanipakam)
 Days / nights:     (e.g. 2 days, 1 night)
@@ -84,3 +84,29 @@ The page currently says the following. Confirm each or give the correct wording.
 - [ ] "Nothing is charged now" (on the booking form).
 - [ ] "Pay the balance after the trip" (booking step 4). What is the real advance/payment rule?
 - [ ] Hero line: "Temple towns, canyon forts and hill air, a short drive from Tirupati." Is Tirupati the right base town?
+
+## 6. Three day-trip packages were removed — we need their real prices
+
+Kanipakam, Srikalahasti and Gudimallam each used to appear on the site **twice**:
+once as a day-trip package, once as a point-to-point car fare. Both sold the same
+journey, so the duplicates have been removed. **The car fare cards were kept**,
+because their prices come from your own fare sheet. The three day-trip packages
+were deleted, because their prices were placeholders we invented before the sheet
+arrived — and they were lower than the one-way car fare, which cannot be right:
+
+| Temple | Car fare, one way | Car fare, return | Old day-trip price (deleted) |
+|---|---|---|---|
+| Kanipakam | ₹2,200 | ₹3,800 | ₹1,799 |
+| Srikalahasti | ₹2,200 | ₹3,300 | ₹1,299 |
+| Gudimallam | ₹1,400 | ₹2,200 | ₹1,199 |
+
+The site now sells these three as a car and driver only. What the packages also
+offered — darshan queue guidance, Rahu-Ketu pooja timing at Srikalahasti, the
+Kalamkari workshop stop — is no longer advertised for them.
+
+**If you want those day trips back as proper packages, send the real price for
+each** (car both ways, plus the darshan help):
+
+- [ ] Kanipakam day trip: ₹______
+- [ ] Srikalahasti day trip: ₹______
+- [ ] Gudimallam day trip: ₹______

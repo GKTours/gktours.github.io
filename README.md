@@ -1,6 +1,6 @@
 # Tours & Travels website
 
-A static website for a tour operator covering Rayalaseema and north Tamil Nadu. Visitors see package cards, filter them, and send a booking enquiry. The enquiry is emailed to every authorised person through [Web3Forms](https://web3forms.com).
+A static website for a tour operator covering Rayalaseema and Tamil Nadu. Visitors see package cards, filter them, and send a booking enquiry. The enquiry is emailed to every authorised person through [Web3Forms](https://web3forms.com).
 
 The chosen design is **Marigold**.
 

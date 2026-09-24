@@ -100,8 +100,12 @@ window.fareKnown = (f) =>
  * booking form serve both. `price` is the cheapest one-way fare — what the
  * corner stamp shows — and stays null when the sheet has no figure.
  */
+// Photo per route. Most match the fare id; srisailam reuses the Nallamala shot.
+const FARE_PHOTO = { srisailam: "nallamala" };
+
 window.FARE_CARDS = window.FARES.map((f) => ({
   id: "fare-" + f.id,
+  photo: "images/" + (FARE_PHOTO[f.id] || f.id) + ".jpg",
   kind: "fare",
   title: "Tirupati → " + f.to,
   region: f.region,
@@ -115,3 +119,36 @@ window.FARE_CARDS = window.FARES.map((f) => ({
 }));
 
 window.PACKAGES.push(...window.FARE_CARDS);
+
+/*
+ * Per-kilometre rates for long runs — the owner's figures for trips beyond
+ * 300 km, where a point-to-point fare no longer applies and the trip is
+ * charged by distance instead.
+ *
+ * `perKm` is rupees per kilometre for the whole vehicle. What is NOT yet
+ * confirmed: whether tolls, parking, state permits and the driver's allowance
+ * are included, and whether a minimum daily kilometre applies. Those are
+ * open questions in DATA-TO-FILL.md - do not invent them on the page.
+ */
+window.KM_RATE_THRESHOLD = 300;
+// `photo` is a stand-in picture of the model, not this operator's own vehicle.
+// Urbania has none: no freely-licensed photo of it exists (launched 2023,
+// India-only), so its card renders without one. Replace all five with real
+// photos of the actual fleet when the owner sends them - see DATA-TO-FILL.md.
+window.KM_RATES = [
+  { key: "dzire",   label: "Dzire",   seats: "4 seater",    perKm: 15,
+    photo: "images/fleet/dzire.jpg",
+    blurb: "A sedan for two or three, and the cheapest way to cover distance." },
+  { key: "innova",  label: "Innova",  seats: "7 seater",    perKm: 22,
+    photo: "images/fleet/innova.jpg",
+    blurb: "Room for a family with luggage, and easy on long ghat roads." },
+  { key: "crysta",  label: "Crysta",  seats: "7 seater",    perKm: 25,
+    photo: "images/fleet/crysta.jpg",
+    blurb: "The same seven seats with more comfort for longer journeys." },
+  { key: "tempo",   label: "Tempo",   seats: "9-12 seater", perKm: 28,
+    photo: "images/fleet/tempo.jpg",
+    blurb: "For a group travelling together, with space to stand up inside." },
+  { key: "urbania", label: "Urbania", seats: "12+ seater",  perKm: 35,
+    photo: null,
+    blurb: "The largest in the fleet, for a big group on a long route." },
+];

@@ -17,3 +17,10 @@
   .sc-wave { animation: sc-wave 4s ease-in-out infinite alternate; }
   @keyframes sc-wave { to { transform: translateX(-20px); } }
 }
+
+/* Photographs use the same box as the illustrated scenes: fill and crop rather
+   than letterbox, so a card never shows bars around the picture. */
+.scene-photo { display: block; width: 100%; height: 100%; object-fit: cover; }
+/* No absolute positioning here: .modal-scene has no positioned ancestor of its
+   own, so inset:0 escaped to the dialog and the photo covered the whole booking
+   form. Filling the box the same way .scene does is enough. */

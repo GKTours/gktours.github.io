@@ -119,7 +119,7 @@
     const p = TRIPS[i];
     const paint = () => {
       archScene.className = "arch-scene mood-" + p.mood;
-      archScene.innerHTML = Scene.render(p.scene);
+      archScene.innerHTML = art(p, { eager: true });
       $("#archTitle").textContent = p.title;
       $("#archMeta").textContent = `${REGIONS[p.region]}, ${days(p)}, from ${formatINR(p.price)}`;
     };
@@ -129,6 +129,42 @@
   }
   showArch(0, true);
   $("#archBook").addEventListener("click", (e) => openModal(TRIPS[archIndex].id, e.currentTarget));
+
+  /* Card/hero art: a real photograph of the place when we have one, otherwise
+   * the illustrated SVG scene. Keeping the SVG as the fallback means a package
+   * added without a photo still renders. */
+  function art(p, opts) {
+    const o = opts || {};
+    if (p && p.photo) {
+      // The hero arch is above the fold, so it loads eagerly: lazy-loading it
+      // let the browser defer the one image the page opens on, and the arch
+      // painted empty until something scrolled. Cards below the fold stay lazy.
+      const loading = o.eager ? "eager" : "lazy";
+      return `<img class="scene-photo" src="${p.photo}" alt="${p.title || ""}" loading="${loading}" decoding="async">`;
+    }
+    return Scene.render(o.scene || (p && p.scene));
+  }
+
+  /* ---------- per-km rates for long trips ---------- */
+  (function kmRates() {
+    const host = $("#kmRates");
+    if (!host || !window.KM_RATES) return;
+    $("#kmThreshold").textContent = `${KM_RATE_THRESHOLD} km`;
+    host.innerHTML = KM_RATES.map((r) => `
+      <article class="fleet-card">
+        <div class="fleet-pic">${r.photo
+          ? `<img src="${r.photo}" alt="${r.label}" loading="lazy" decoding="async">`
+          : `<span class="fleet-nopic">Photo coming soon</span>`}
+          <div class="stamp"><strong>${formatINR(r.perKm)}</strong><small>per km</small></div>
+        </div>
+        <div class="fleet-body">
+          <h3>${r.label}</h3>
+          <p class="fleet-seats">${r.seats}</p>
+          <p class="fleet-blurb">${r.blurb}</p>
+          <button class="btn btn-rani btn-small" type="button" data-book="custom">Enquire</button>
+        </div>
+      </article>`).join("");
+  })();
 
   /* ---------- package cards + filters ---------- */
   // A car fare is priced by the vehicle, so its stamp says "one way"; a package
@@ -150,27 +186,42 @@
             <tbody>${rows}</tbody>
           </table>`;
   }
+  // A package priced per vehicle shows both prices in the same table shape the
+  // fare cards use, so the two kinds of card read alike.
+  function vehicleTable(p) {
+    const rows = VEHICLE_CLASSES
+      .filter((v) => p.vehiclePrices[v.key] != null)
+      .map((v) => `<tr><th scope="row">${v.label} <small>${v.hint}</small></th><td>${formatINR(p.vehiclePrices[v.key])}</td></tr>`)
+      .join("");
+    return `<table class="fare-table">
+            <thead><tr><td></td><th scope="col">Whole trip</th></tr></thead>
+            <tbody>${rows}</tbody>
+          </table>`;
+  }
   function cardDetails(p) {
-    return p.kind === "fare"
-      ? `<details class="includes"><summary>Sedan and SUV fares</summary>${fareTable(p.fare)}</details>`
-      : `<details class="includes"><summary>What's included</summary><ul>${p.includes.map((x) => `<li>${x}</li>`).join("")}</ul></details>`;
+    if (p.kind === "fare") {
+      return `<details class="includes"><summary>Sedan and SUV fares</summary>${fareTable(p.fare)}</details>`;
+    }
+    const inc = `<details class="includes"><summary>What's included</summary><ul>${p.includes.map((x) => `<li>${x}</li>`).join("")}</ul></details>`;
+    return p.vehiclePrices
+      ? `<details class="includes"><summary>Sedan and SUV prices</summary>${vehicleTable(p)}</details>${inc}`
+      : inc;
   }
 
   const grid = $("#grid");
   grid.innerHTML = PACKAGES.map((p) => `
     <article class="card" data-id="${p.id}">
       <div class="card-scene mood-${p.mood}">
-        ${Scene.render(p.scene)}
+        ${art(p)}
         <div class="stamp${p.kind === "fare" && p.price == null ? " stamp-ask" : ""}">${stamp(p)}</div>
       </div>
       <div class="card-body">
-        <div class="card-meta"><span class="tag region">${REGIONS[p.region]}</span>${p.tags.filter((t) => t !== "Day trip").map((t) => `<span class="tag">${t}</span>`).join("")}</div>
+        <div class="card-meta"><span class="tag region">${REGIONS[p.region]}</span>${p.tags.map((t) => `<span class="tag">${t}</span>`).join("")}</div>
         <h3>${p.title}</h3>
         <ol class="route" aria-label="Route">${routeNames(p).map((n) => `<li>${n}</li>`).join("")}</ol>
         <p class="blurb">${p.blurb}</p>
         ${cardDetails(p)}
         <div class="card-actions">
-          <span class="days">${days(p)}</span>
           <button class="btn btn-rani btn-small" type="button" data-book="${p.id}">${p.kind === "fare" ? "Book this car" : "Book this trip"}</button>
         </div>
       </div>
@@ -224,6 +275,12 @@
 
   // "from ₹4,999" for a package, the vehicle fare for a car.
   function priceLine(p) {
+    if (p.vehiclePrices) {
+      const parts = VEHICLE_CLASSES
+        .filter((v) => p.vehiclePrices[v.key] != null)
+        .map((v) => `${v.label} ${formatINR(p.vehiclePrices[v.key])}`);
+      return `${parts.join(", ")} — whole car`;
+    }
     if (p.kind !== "fare") return `from ${formatINR(p.price)}`;
     return p.price == null ? "Fare on request" : `from ${formatINR(p.price)} one way, whole car`;
   }
@@ -234,7 +291,7 @@
     const p = custom ? null : packageById(id);
     const scene = $("#modalScene");
     scene.className = "modal-scene mood-" + (custom ? "forest" : p.mood);
-    scene.innerHTML = Scene.render(custom ? "hills" : p.scene);
+    scene.innerHTML = custom ? Scene.render("hills") : art(p);
     $("#modalPrice").textContent = custom ? "Custom trip" : priceLine(p);
     $("#modalRoute").textContent = custom
       ? "List the places you want to visit. We'll plan the route and call you with a price."

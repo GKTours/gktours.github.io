@@ -1,0 +1,42 @@
+{
+ "dzire": {
+  "url": "https://upload.wikimedia.org/wikipedia/commons/0/0a/Maruti_Suzuki_Dzire_VXi_VVT_%28front%29.JPG?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail_unscaled",
+  "page": "https://commons.wikimedia.org/wiki/File:Maruti_Suzuki_Dzire_VXi_VVT_(front).JPG",
+  "license": "CC BY 3.0",
+  "artist": "Biswarup Ganguly",
+  "title": "Maruti Suzuki Dzire VXi VVT (front).JPG",
+  "file": "images/fleet/dzire.jpg",
+  "bytes": 106222,
+  "orig": "3665x2040"
+ },
+ "innova": {
+  "url": "https://upload.wikimedia.org/wikipedia/commons/2/27/Toyota_Innova_2.5_G_2014.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail_unscaled",
+  "page": "https://commons.wikimedia.org/wiki/File:Toyota_Innova_2.5_G_2014.jpg",
+  "license": "CC BY-SA 4.0",
+  "artist": "Ethan Llamas",
+  "title": "Toyota Innova 2.5 G 2014.jpg",
+  "file": "images/fleet/innova.jpg",
+  "bytes": 110102,
+  "orig": "3120x2340"
+ },
+ "crysta": {
+  "url": "https://upload.wikimedia.org/wikipedia/commons/8/87/Toyota_Innova_Crysta_2.4_Z_front_right.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail_unscaled",
+  "page": "https://commons.wikimedia.org/wiki/File:Toyota_Innova_Crysta_2.4_Z_front_right.jpg",
+  "license": "CC BY-SA 4.0",
+  "artist": "Premnath Kudva",
+  "title": "Toyota Innova Crysta 2.4 Z front right.jpg",
+  "file": "images/fleet/crysta.jpg",
+  "bytes": 116692,
+  "orig": "2623x1711"
+ },
+ "tempo": {
+  "url": "https://upload.wikimedia.org/wikipedia/commons/4/43/Force_Traveller_Luxury.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail_unscaled",
+  "page": "https://commons.wikimedia.org/wiki/File:Force_Traveller_Luxury.jpg",
+  "license": "CC BY-SA 2.0",
+  "artist": "वंपायर;Cropped, minor redrawings, and levels adjusted by uploader Mr.choppers",
+  "title": "Force Traveller Luxury.jpg",
+  "file": "images/fleet/tempo.jpg",
+  "bytes": 117300,
+  "orig": "1554x1084"
+ }
+}
